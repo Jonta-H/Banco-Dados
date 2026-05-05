@@ -11,9 +11,9 @@ CREATE TABLE aluno (
 
 ## Comando para inserir (cadastrar) um registro na tabela
 INSERT INTO aluno
-VALUES (26387, 'MARINA', '16999951475', 'MARCOS', 'SILVIA', '2005/06/03'),
-(502043, 'JOÃO', '17332932592', 'PEDRO', 'CARLA', '2005/05/15'),
-(562346, 'ANA', '162432402505', 'JORGE', 'MARTA', '2003/08/30'),
+VALUES (26387, 'MARINA', '16999951475', 'MARCOS', 'SILVIA', '2005/06/03'),  
+(502043, 'JOÃO', '17332932592', 'PEDRO', 'CARLA', '2005/05/15'),  
+(562346, 'ANA', '162432402505', 'JORGE', 'MARTA', '2003/08/30'),  
 (98593, 'MATHIAS', '35949523752', 'JEREMIAS', 'RENATA', '2010/02/28');
 
 ## Comando para selecionar todos os registros de uma tabela
