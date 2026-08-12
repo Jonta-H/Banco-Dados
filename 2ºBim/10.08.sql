@@ -68,4 +68,16 @@ UPDATE produto SET preco = 1.99
     WHERE codPro = 1
 
 -- 13. Liste a descrição dos produtos e os nomes das categorias que pertencem
-SELECT * FROM produto
+SELECT P.descricao, C.nomeCat FROM 
+    produto AS P INNER JOIN categoria AS C
+    ON P.codCat = C.codCat
+
+-- 14. Liste as categorias que não possuem produtos vinculados à ela
+SELECT nomeCat FROM  
+    categoria AS C LEFT JOIN produto AS P
+    ON C.codCat = P.codCat
+    WHERE P.codCat IS NULL
+
+-- 15. Aumente o preço dos produtos em 5%. Esta alteração deve atingir somente produtos que possuem estoque menor que 400
+UPDATE produto SET preco = preco * 1.05
+    WHERE estoque > 400
