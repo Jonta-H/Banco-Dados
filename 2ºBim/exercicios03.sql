@@ -105,7 +105,8 @@ UPDATE Hospede SET dtNasc = '2002-09-25'
 SELECT H.nome AS nomeHospede, R.dtEntrada AS dataEntrada FROM 
     Hospede AS H INNER JOIN Reserva AS R
     ON H.codHospede = R.codHospede
-        WHERE R.dtEntrada < '2025-01-01'
+        WHERE R.dtEntrada < '2025-01-01' 
+        ORDER BY H.nome
 
 -- 10. Selecione os nomes das mulheres que já se hospedaram no 4º andar
 SELECT DISTINCT(H.nome) AS hospedes FROM 
