@@ -67,16 +67,58 @@ SELECT PrimeiroNome, SegundoNome, UltimoNome, Salario FROM Func
     WHERE Salario > 1000 ORDER BY PrimeiroNome, SegundoNome, UltimoNome
 
 -- 4. Liste a data de nascimento e o primeiro nome dos funcionários ordenados do mais novo para o mais velho
-SELECT 
+SELECT PrimeiroNome, DataNasci FROM Func ORDER BY DataNasci DESC
 
 -- 5. Liste o total da folha de pagamento
+SELECT SUM(Salario) AS totalFolha FROM Func 
 
 -- 6. Liste o nome, o nome do departamento e a função de todos os funcionários
+SELECT F.PrimeiroNome AS Funcionario, D.Nome AS Depto, F.Funcao FROM
+    Func AS F INNER JOIN Depto AS D
+    ON F.CodDepto = D.CodDepto
 
 -- 7. Liste todos departamentos com seus respectivos gerentes
+SELECT D.Nome AS Departamento, F.PrimeiroNome AS Gerente FROM
+    Depto AS D INNER JOIN Func AS F
+    ON D.CodigoFuncionarioGerente = F.CodFunc
 
 -- 8. Liste o valor da folha de pagamento de cada departamento (nome)
 
+
 -- 9. Liste os departamentos dos funcionários que têm a função de supervisor
+SELECT * FROM Depto
+    WHERE CodDepto IN (
+        SELECT CodDepto FROM Func
+            WHERE Funcao = 'Supervisor' 
+    )
 
 -- 10. Liste a quantidade de funcionários desta empresa
+SELECT COUNT(*) AS QtdeFunc FROM Func
+
+-- 11. Liste o salário médio pago pela empresa
+SELECT AVG(salario) AS MediaSalarial FROM Func
+
+-- 12. Liste a quantidade de funcionários que trabalham em cada departamento
+SELECT Nome, COUNT(*) AS QtdeFunc FROM
+    Depto INNER JOIN Func
+    ON Depto.CodDepto = Func.CodDepto
+    GROUP BY Nome
+
+-- 13. Liste o menor salário pago pela empresa em cada departamento
+SELECT D.Nome AS Depto, MIN(F.salario) AS menorSalario FROM
+    Depto D INNER JOIN Func F
+    ON D.CodDepto = F.CodDepto
+    GROUP BY D.Nome
+
+-- 14. Liste o nome completo de todos os funcionários que não tenham segundo nome
+SELECT PrimeiroNome, UltimoNome FROM Func
+    -- Atribui um valor ao campo nulo e então o compara
+    -- Evita erros durante a execução para diferentes tipos de dado com campos nulos
+    WHERE ISNULL(SegundoNome, '') = ''
+
+-- Listar funcionário juntamente com seu gerente direto
+SELECT F.PrimeiroNome AS Funcionario, D.Nome AS Departamento, G.PrimeiroNome AS GerenteDireto FROM
+    Func AS f LEFT JOIN Depto AS d
+    ON d.CodDepto = f.CodDepto
+    LEFT JOIN Func AS g
+    ON g.CodFunc = d.CodigoFuncionarioGerente
